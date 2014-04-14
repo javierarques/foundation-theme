@@ -7,6 +7,8 @@ register_nav_menus( array(
     'footer' => 'Menú del footer'
 ));
 
+the_title();
+
 /**
  * Customize the output of menus for Foundation top bar
  */
@@ -63,6 +65,8 @@ function foundation_nav() {
 /*
  *  Sidebars
  */
+
+
 // Sidebar columna derecha del blog
 register_sidebar (
     array(
@@ -88,4 +92,40 @@ register_sidebar (
     'before_title'  => '<h3 class="widgettitle">',
     'after_title'   => '</h3>' )
 );
+
+
+/**
+ * Tipos de posts
+ **/
+
+function my_custom_post_types() {
+    $args = array(
+        'public' => false,
+        'label'  => 'Sliders',
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'supports' => array('title','thumbnail', 'custom-fields')
+    );
+    register_post_type( 'slider', $args );
+}
+add_action( 'init', 'my_custom_post_types' );
+
+add_theme_support( 'post-thumbnails' );
+
+/**
+ *  Tamaños personalizados
+ *
+ */
+
+add_image_size( 'slider', 970, 390, true);
+
+
+
+
+
+
+
+
+
 
