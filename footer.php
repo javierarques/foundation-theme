@@ -1,10 +1,9 @@
-
     <!-- Footer -->
 
-    <footer class="row">
-      <div class="large-12 columns">
-        <hr>
-
+    <footer>
+        <div class="row">
+            <?php get_sidebar('footer'); ?>
+        </div>
         <div class="row">
           <div class="large-6 columns">
               <p><a href="<?php bloginfo('site_url')?>"><?php bloginfo('name'); ?></a> 
@@ -13,7 +12,7 @@
           </div>
 
           <div class="large-6 columns">
-              
+
             <?php wp_nav_menu( array(
                 'theme_location' => 'footer',
                 'container' => 'nav',
@@ -21,8 +20,8 @@
             ))?>
           </div>
         </div>
-      </div>
     </footer><!-- End Footer -->
+    
   </div>
 </div>
 

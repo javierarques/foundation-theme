@@ -10,7 +10,50 @@ get_header();
 
   <div class="row">
     <div class="large-12 columns">
-      <h1>Blog <small>This is my blog. It's awesome.</small></h1>
+      <?php if ( is_category()) :?>
+        <h1><?php single_cat_title();?> <small><?php _e('Entradas en la categoría', 'foundation')?></small></h1>
+        <?php
+          // Show an optional term description.
+          $term_description = term_description();
+          if ( ! empty( $term_description ) ) :
+            printf( '<div class="taxonomy-description">%s</div>', $term_description );
+          endif;
+        ?>
+      <?php elseif( is_tag()) : ?>
+        <h1><?php single_tag_title();?> <small><?php _e('Entradas en la etiqueta', 'foundation')?></small></h1>
+        <?php
+          // Show an optional term description.
+          $term_description = term_description();
+          if ( ! empty( $term_description ) ) :
+            printf( '<div class="taxonomy-description">%s</div>', $term_description );
+          endif;
+        ?>
+
+      <?php elseif( is_author()) : ?>
+
+        <h1>
+          <?php
+            /*
+             * Queue the first post, that way we know what author
+             * we're dealing with (if that is the case).
+             *
+             * We reset this later so we can run the loop properly
+             * with a call to rewind_posts().
+             */
+            the_post();
+
+            printf( __( '%s <small>entradas del autor</small>', 'foundation' ), get_the_author() );
+          ?>
+        </h1>
+        <?php if ( get_the_author_meta( 'description' ) ) : ?>
+        <div class="author-description"><?php the_author_meta( 'description' ); ?></div>
+        <?php endif; ?>        
+
+      <?php else : ?>
+        <h1>Blog <small>This is my blog. It's awesome.</small></h1>
+      <?php endif;?>
+
+      
       <hr />
     </div>
   </div>
@@ -53,29 +96,13 @@ get_header();
 
     <!-- End Main Content -->
 
-
     <!-- Sidebar -->
-
     <aside class="large-3 columns">
-
-      <h5>Categories</h5>
-      <ul class="side-nav">
-        <li><a href="#">News</a></li>
-        <li><a href="#">Code</a></li>
-        <li><a href="#">Design</a></li>
-        <li><a href="#">Fun</a></li>
-        <li><a href="#">Weasels</a></li>
-      </ul>
-
-      <div class="panel">
-        <h5>Featured</h5>
-        <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow.</p>
-        <a href="#">Read More &rarr;</a>
-      </div>
-
+        <?php get_sidebar(); ?>
     </aside>
-
     <!-- End Sidebar -->
+
+
   </div>
 
   <!-- End Main Content and Sidebar -->

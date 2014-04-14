@@ -58,5 +58,34 @@ function foundation_nav() {
         </ul> 
     </nav>
     <?php    
-    
 }
+
+/*
+ *  Sidebars
+ */
+// Sidebar columna derecha del blog
+register_sidebar (
+    array(
+    'name'          => __('Sidebar blog', 'foundation' ),
+    'id'            => 'sidebar-blog',
+    'description'   => __('Sidebar de la columna derecha del blog', 'foundation'),
+    'class'         => '',
+    'before_widget' => '<div id="%1$s" class="widget panel %2$s">',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h3 class="widgettitle">',
+    'after_title'   => '</h3>' )
+);
+
+// Sidebar columna derecha del blog
+register_sidebar (
+    array(
+    'name'          => __('Sidebar footer', 'foundation' ),
+    'id'            => 'sidebar-footer',
+    'description'   => __('Sidebar del footer de la página', 'foundation'),
+    'class'         => '',
+    'before_widget' => '<div id="%1$s" class="widget large-4 columns %2$s">',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h3 class="widgettitle">',
+    'after_title'   => '</h3>' )
+);
+
