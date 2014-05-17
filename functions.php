@@ -1,6 +1,15 @@
 <?php
 
 add_theme_support('menus');
+add_theme_support( 'post-thumbnails' );
+
+
+/**
+ *  Tamaños personalizados
+ *
+ */
+
+add_image_size( 'slider', 970, 390, true);
 
 register_nav_menus( array(
     'main' => 'Menú principal',
@@ -99,6 +108,8 @@ register_sidebar (
  **/
 
 function my_custom_post_types() {
+
+    // Sliders
     $args = array(
         'public' => false,
         'label'  => 'Sliders',
@@ -108,17 +119,93 @@ function my_custom_post_types() {
         'supports' => array('title','thumbnail', 'custom-fields')
     );
     register_post_type( 'slider', $args );
+
+    // Productos
+    $args = array(
+        'public' => true,
+        'label'  => 'Productos',
+        'has_archive' => 'productos',
+        'supports' => array('title','thumbnail', 'custom-fields')
+    );
+    register_post_type( 'producto', $args );
+
+
+    // Taxonomías personalizadas
+
+    // Add new taxonomy, make it hierarchical (like categories)
+    $labels = array(
+        'name'              => _x( 'Familias', 'taxonomy general name' ),
+        'singular_name'     => _x( 'Familia', 'taxonomy singular name' ),
+        'search_items'      => __( 'Buscar Familias' ),
+        'all_items'         => __( 'Todas las familias' ),
+        'parent_item'       => __( 'Padre' ),
+        'parent_item_colon' => __( 'Padre:' ),
+        'edit_item'         => __( 'Editar familia' ),
+        'update_item'       => __( 'Actualizar familia' ),
+        'add_new_item'      => __( 'Añadir nueva familia' ),
+        'new_item_name'     => __( 'Nueva familia' ),
+        'menu_name'         => __( 'Familias' ),
+    );
+
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array( 'slug' => 'familia' ),
+    );
+
+    register_taxonomy( 'familia', array( 'producto' ), $args );    
+
+    register_taxonomy( 'marca', array( 'producto' ), array('hiearchical' => true, 'label' => 'Marcas'));
+
+
 }
 add_action( 'init', 'my_custom_post_types' );
 
-add_theme_support( 'post-thumbnails' );
+
+
+// Add the filter
+add_filter( 'template_include', 'my_custom_template');
+ 
+/**
+ * Returns customized templates for custom taxonomies
+ *
+ * @param string $template
+ * @return string
+ */
+function my_custom_template ( $template ) {
+    
+
+    if ( is_tax('familia') || is_tax('marca') ){
+
+            $template =  TEMPLATEPATH . '/archive-producto.php';
+    } 
+    
+    return $template;
+}
+
 
 /**
- *  Tamaños personalizados
- *
+ * Theme styles and scripts
  */
+function theme_name_scripts() {
 
-add_image_size( 'slider', 970, 390, true);
+
+    wp_enqueue_style( 'styles', get_stylesheet_uri());
+    wp_enqueue_style( 'foundation', get_template_directory_uri() . '/css/foundation.css');
+    
+    if ( is_page('portfolio')) {
+        wp_enqueue_style( 'galeria', get_template_directory_uri() . '/css/galeria.css');    
+    }
+
+}
+
+add_action( 'wp_enqueue_scripts', 'theme_name_scripts' );
+
+
+
 
 
 

@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?php wp_title(); ?></title>
     
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/css/foundation.css" />
-    <link rel="stylesheet" href="<?php echo get_stylesheet_uri() ?>"/>
+    
     <script src="<?php echo get_template_directory_uri() ?>/js/vendor/modernizr.js"></script>
     
     <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/img/icons/favicon.ico" type="image/x-icon">
@@ -28,6 +27,10 @@
                 </ul>
 
                 <section class="top-bar-section">
+
+                    <nav>
+                        <?php the_title()?>
+                    </nav>
                 
                 <?php wp_nav_menu( array(
                     'theme_location' => 'main',

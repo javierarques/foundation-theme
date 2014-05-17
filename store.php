@@ -1,5 +1,9 @@
-<?php include('header.php'); ?>
-
+<?php
+  /*
+  Template name: Store
+  */
+  get_header();
+?>
 
 <div class="row">
   <div class="large-12 columns">
@@ -113,6 +117,5 @@
         </div>
       </div>
     </div>
-
-
-<?php include('footer.php')?>
+    
+<?php get_footer();?>

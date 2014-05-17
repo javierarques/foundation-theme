@@ -21,6 +21,8 @@ get_header() ?>
 			    <?php the_content(); ?>
 
 				<?php the_tags( '<footer class="tags">Etiquetas: ', ', ', '</footer>' );?>
+
+				<?php the_meta(); ?>
 			</article>
 
 			<hr />

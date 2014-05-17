@@ -17,6 +17,7 @@
     if ( $slider_query->have_posts()) {
       while ( $slider_query->have_posts()) {
         $slider_query->the_post();
+        //the_title();
         $enlace_id = get_post_meta( get_the_ID(), 'slide_url', true);
 
         echo '<li><a href="'. get_permalink( $enlace_id ).'">'. get_the_post_thumbnail( get_the_ID(), 'slider').'</a></li>';
